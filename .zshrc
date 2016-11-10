@@ -1,12 +1,10 @@
+alias repo-top="cd $(git rev-parse --show-top-level || echo ".")"
+alias rt="repo-top"
 alias ip="ifconfig | grep 'inet 10' | sed 's/.* \([0-9\.]*\) .*/\1/'"
 alias countlines="git diff --shortstat `git hash-object -t tree /dev/null`"
 alias lines="countlines > lines.txt && cat lines.txt && rm lines.txt"
 alias show-branch-ages="git for-each-ref refs/remotes/origin/ --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"
-alias pub="npm prune && npm update && npm run build:clean"
-alias nuke="rm -rf node_modules && npm install && npm run build:clean"
-alias npmi="npm install"
-alias nr="npm run"
-alias rc="atom ~/.zshrc"
+alias rc="vim ~/.zshrc"
 alias vi="vim"
 
 findir() {
