@@ -17,6 +17,7 @@ alias lines="countlines > lines.txt && cat lines.txt && rm lines.txt"
 # `git old` will do this as well 
 alias show-branch-ages="git for-each-ref refs/remotes/origin/ --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"
 
+
 # Load scripts
 ## https://github.com/rupa/z.git
 . ~/z/z.sh
@@ -26,6 +27,10 @@ export NVM_DIR="/Users/joshuaclark/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 # Utility Functions
+find-alias() {
+  grep -r "$1" "$2"
+}
+
 findir() {
   find ~ -type d -name $1 -print
 }
