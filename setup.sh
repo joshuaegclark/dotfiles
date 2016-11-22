@@ -71,3 +71,9 @@ if ! xcode-select --print-path &> /dev/null; then
     print_result $? 'Agree with the XCode Command Line Tools licence'
 
 fi
+
+# Install NVM, ought to check the version here. Much dislike for version in url... >_>
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash
+
+# VSCode
+bash ./vscode-setup.sh

@@ -47,6 +47,7 @@ brew cask install hyper
 brew cask install visual-studio-code
 brew cask install atom
 
+
 ## browsers
 brew cask install google-chrome
 brew cask install google-chrome-canary

@@ -1,12 +1,20 @@
-alias repo-top="cd $(git rev-parse --show-top-level || echo ".")"
-alias rt="repo-top"
+alias ll="ls -lah"
+alias l="ls -lh"
+alias .rc="source $HOME/.zshrc"
+alias rc="vim $HOME/.zshrc"
+alias vi="vim"
+alias gs="git status"
+alias gl="git log"
+alias amend="git commit --amend --no-edit --reset-author"
+# TODO: Figure out why this alias executes and gives not a repo error
+# when sourcing .zshrc
+# alias repo-top="git rev-parse --show-top-level"
+# alias rt="cd $(repo-top)"
 alias ip="ifconfig | grep 'inet 10' | sed 's/.* \([0-9\.]*\) .*/\1/'"
 alias countlines="git diff --shortstat `git hash-object -t tree /dev/null`"
 alias lines="countlines > lines.txt && cat lines.txt && rm lines.txt"
 # `git old` will do this as well 
 alias show-branch-ages="git for-each-ref refs/remotes/origin/ --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"
-alias rc="vim ~/.zshrc"
-alias vi="vim"
 
 # Load scripts
 ## https://github.com/rupa/z.git
@@ -36,7 +44,7 @@ export LESS_TERMCAP_ue=$'\E[0m'           # end underline
 export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 
 # GNU core utilities (OS X ships with outdated ones)
-export PATH="$PATH:`$(brew --prefix coreutils)/libexec/gnubin`"
+#export PATH="$PATH:`$(brew --prefix coreutils)/libexec/gnubin`"
 
 # TODO: wire up completion
 function proj() {
