@@ -1,0 +1,25 @@
+// Place your key bindings in this file to overwrite the defaults
+[
+{
+  "key": "ctrl+c+ctrl+j",
+  "command": "clojureVSCode.connect",
+  "when": "editorTextFocus"
+},{
+  "key": "alt+.",
+  "command": "editor.action.goToDeclaration",
+  "when": "editorTextFocus"
+},{
+  "key": "alt+,",
+  "command": "workbench.action.navigateBack",
+  "when": "editorTextFocus"
+}
+,{
+  "key": "ctrl+c ctrl+e",
+  "command": "clojureVSCode.eval",
+  "when": "editorTextFocus"
+},{
+  "key": "ctrl+right",
+  "command": "paredit.slurpSexpForward",
+  "when": "editorTextFocus"
+}
+]
