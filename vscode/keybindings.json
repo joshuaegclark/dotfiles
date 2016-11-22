@@ -22,4 +22,12 @@
   "command": "paredit.slurpSexpForward",
   "when": "editorTextFocus"
 }
-]
+,{
+  "key": "ctrl+shift+e",
+  "command": "cursorEndSelect",
+  "when": "editorTextFocus"
+},{
+  "key": "ctrl+shift+a",
+  "command": "cursorHomeSelect",
+  "when": "editorTextFocus"
+}]
