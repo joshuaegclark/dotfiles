@@ -10,7 +10,12 @@ bash ./install-homebrew.sh
 # Brew
 ## Update Homebrew and any already installed formulae
 brew update && brew upgrade
+brew install caskroom/cask/brew-cask
+# to maintain cask:
+# brew update && brew upgrade brew-cask && brew cleanup && brew cask cleanup
+
 brew tap homebrew/versions
+brew tap caskroom/versions
 
 ## GNU core utilities (OS X ships with outdated ones)
 ## `$(brew --prefix coreutils)/libexec/gnubin` is added
@@ -37,16 +42,11 @@ brew install zsh
 brew install diff-so-fancy
 
 # Casks (Native Applications)
-brew install caskroom/cask/brew-cask
-# to maintain cask:
-# brew update && brew upgrade brew-cask && brew cleanup && brew cask cleanup
 
-
-# Dev
+## Dev
 brew cask install hyper
 brew cask install visual-studio-code
 brew cask install atom
-
 
 ## browsers
 brew cask install google-chrome
@@ -56,7 +56,7 @@ brew cask install webkit-nightly
 brew cask install torbrowser
 brew cask install chromium
 
-# General
+## General
 brew cask install spectacle
 brew cask install flux
 brew cask install vlc

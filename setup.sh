@@ -2,8 +2,8 @@
 
 # TODO move me into .functions or util
 print_error() {
-    # Print output in red
-    printf "\e[0;31m  [✖] $1 $2\e[0m\n"
+  # Print output in red
+  printf "\e[0;31m  [✖] $1 $2\e[0m\n"
 }
 
 print_info() {
