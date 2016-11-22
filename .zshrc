@@ -1,3 +1,4 @@
+#this is defined in .oh-my-zsh/lib!
 alias ll="ls -lah"
 alias l="ls -lh"
 alias .rc="source $HOME/.zshrc"
