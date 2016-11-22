@@ -16,7 +16,7 @@ alias countlines="git diff --shortstat `git hash-object -t tree /dev/null`"
 alias lines="countlines > lines.txt && cat lines.txt && rm lines.txt"
 # `git old` will do this as well 
 alias show-branch-ages="git for-each-ref refs/remotes/origin/ --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"
-
+alias brew-update="brew update && brew upgrade brew-cask && brew cleanup && brew cask cleanup"
 
 # Load scripts
 ## https://github.com/rupa/z.git
