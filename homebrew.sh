@@ -35,6 +35,7 @@ brew install homebrew/dupes/grep
 brew install homebrew/dupes/screen
 brew install homebrew/dupes/openssh
 
+brew install watch
 brew install git
 brew install zsh
 
