@@ -14,7 +14,7 @@ brew install caskroom/cask/brew-cask
 # to maintain cask:
 # brew update && brew upgrade brew-cask && brew cleanup && brew cask cleanup
 
-brew tap homebrew/versions
+# deprecated - brew tap homebrew/versions
 brew tap caskroom/versions
 
 ## GNU core utilities (OS X ships with outdated ones)
@@ -27,13 +27,13 @@ brew install moreutils
 brew install findutils
 
 ## GNU sed, overwrites built-in sed
-brew install gnu-sed --default-names
+brew install gnu-sed --with-default-names
 
 ## Install more recent version of some OS X tools
-brew install vim --overide-system-vi
-brew install homebrew/dupes/grep
-brew install homebrew/dupes/screen
-brew install homebrew/dupes/openssh
+brew install vim # this option wasn't recognized: --overide-system-vi
+brew install homebrew/homebrew-core/grep
+brew install homebrew/homebrew-core/screen
+brew install homebrew/homebrew-core/openssh
 
 brew install watch
 brew install git
@@ -52,15 +52,14 @@ brew cask install atom
 ## browsers
 brew cask install google-chrome
 brew cask install google-chrome-canary
-brew cask install firefox-nightly
-brew cask install webkit-nightly
-brew cask install torbrowser
-brew cask install chromium
+#brew cask install firefox-nightly
+#brew cask install webkit-nightly
+#brew cask install torbrowser
+#brew cask install chromium
 
 ## General
 brew cask install spectacle
 brew cask install flux
-brew cask install vlc
+#brew cask install vlc
 
 brew cleanup
-brew cask cleanup
