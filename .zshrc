@@ -56,10 +56,13 @@ killport() {
   kill -9 $(lsof -t -iTCP:$1 -sTCP:LISTEN) 2>/dev/null
 } 
 
-# TODO: wire up completion
 function proj() {
   cd ~/projects/$1
 }
+_proj_completion() {
+  reply=($(exec ls -m ~/projects | sed -e 's/,//g' | tr -d '\n'))
+}
+compctl -K _proj_completion proj
 
 # highlighting inside manpages and elsewhere
 export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
