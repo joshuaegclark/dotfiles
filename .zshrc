@@ -10,11 +10,6 @@ alias rc="vim $HOME/.zshrc"
 alias vi="vim"
 alias gs="git status"
 alias gl="git log"
-alias amend="git commit --amend --no-edit --reset-author"
-# TODO: Figure out why this alias executes and gives not a repo error
-# when sourcing .zshrc
-# alias repo-top="git rev-parse --show-top-level"
-# alias rt="cd $(repo-top)"
 alias ip="ifconfig | grep 'inet 10' | sed 's/.* \([0-9\.]*\) .*/\1/'"
 # count the number of lines in all files in a repo
 alias lines="git diff --shortstat `git hash-object -t tree /dev/null` > lines.txt && cat lines.txt && rm lines.txt"
