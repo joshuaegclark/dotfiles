@@ -1,3 +1,10 @@
+# oh-my-zsh stuff for reference
+# set theme to empty for 
+ZSH_THEME=""
+plugins=(
+  git
+)
+
 alias .rc="source $HOME/.zshrc"
 alias rc="vim $HOME/.zshrc"
 alias vi="vim"
@@ -9,38 +16,22 @@ alias amend="git commit --amend --no-edit --reset-author"
 # alias repo-top="git rev-parse --show-top-level"
 # alias rt="cd $(repo-top)"
 alias ip="ifconfig | grep 'inet 10' | sed 's/.* \([0-9\.]*\) .*/\1/'"
-alias countlines="git diff --shortstat `git hash-object -t tree /dev/null`"
-alias lines="countlines > lines.txt && cat lines.txt && rm lines.txt"
+# count the number of lines in all files in a repo
+alias lines="git diff --shortstat `git hash-object -t tree /dev/null` > lines.txt && cat lines.txt && rm lines.txt"
 # `git old` will do this as well 
 alias show-branch-ages="git for-each-ref refs/remotes/origin/ --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"
-alias brew-update="brew update && brew upgrade brew-cask && brew cleanup && brew cask cleanup"
 
 ###
-# time to upgrade `ls`
-
-# use coreutils `ls` if possible…
+# Give `ls` a serious upgrade
 hash gls >/dev/null 2>&1 || alias gls="ls"
-
-# always use color, even when piping (to awk,grep,etc)
+# always use color (including piping)
 if gls --color > /dev/null 2>&1; then colorflag="--color"; else colorflag="-G"; fi;
 export CLICOLOR_FORCE=1
 
-# ls options: A = include hidden (but not . or ..), F = put `/` after folders, h = byte unit suffixes
 alias ls="gls -AFh ${colorflag} --group-directories-first"
 alias lsd='ls -l | grep "^d"' # only directories
-###
-#this is defined in .oh-my-zsh/lib!
-alias ll="ls"
+alias ll="ls -l"
 alias l="gls -aFh ${colorflag} --group-directories-first"
-
-
-# Load scripts
-## https://github.com/rupa/z.git
-. ~/z/z.sh
-
-## Node Version Manager
-export NVM_DIR="/Users/joshuaclark/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 # Utility Functions
 find-alias() {
@@ -63,6 +54,34 @@ _proj_completion() {
   reply=($(exec ls -m ~/projects | sed -e 's/,//g' | tr -d '\n'))
 }
 compctl -K _proj_completion proj
+alias p="proj"
+
+rally-clone() {
+  git clone https://github.com/RallySoftware/$1.git
+}
+josh-clone() {
+  git clone https://github.com/joshuaegclark/$1.git
+}
+
+# oceanic next shell theme
+# https://github.com/mhartington/oceanic-next-shell
+# must do the following first to install:
+# git clone https://github.com/mhartington/oceanic-next-shell.git ~/.config/oceanic-next-shell
+#
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/oceanic-next-shell/oceanic-next.dark.sh"
+[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+
+# https://github.com/sindresorhus/pure
+# Must do `npm i -g pure-prompt` to install
+# init
+autoload -U promptinit; promptinit
+prompt pure
+# customize
+prompt_newline='%666v' # single line prompt
+# PROMPT=" $PROMPT" # single line prompt
+# PROMPT='%F{white}%* '$PROMPT # show system time
+PROMPT=" %F{white}%* $PROMPT" # single line prompt + system time
 
 # highlighting inside manpages and elsewhere
 export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
@@ -76,3 +95,6 @@ export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 # GNU core utilities (OS X ships with outdated ones)
 #export PATH="$PATH:`$(brew --prefix coreutils)/libexec/gnubin`"
 
+# nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
