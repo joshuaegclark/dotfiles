@@ -33,6 +33,13 @@ print_success() {
 # Install Homebrew and formulae and native applications via cask
 bash ./homebrew.sh
 
+# Install oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+# Install shell color theme
+# See corresponding config in .zshrc under "oceanic next shell theme"
+git clone https://github.com/mhartington/oceanic-next-shell.git ~/.config/oceanic-next-shell
+
 # Link all dotfiles to home
 bash ./link-dotfiles.sh
 
