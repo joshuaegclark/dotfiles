@@ -84,3 +84,6 @@ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | b
 
 # VSCode
 bash ./vscode-setup.sh
+
+# Show hidden files in macOS
+defaults write com.apple.finder AppleShowAllFiles YES
