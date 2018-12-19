@@ -67,6 +67,11 @@ josh-clone() {
 BASE16_SHELL="$HOME/.config/oceanic-next-shell/oceanic-next.dark.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
+# Load nvm before setting up the prompt to avoid
+# race condition when getting node version
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
 # https://github.com/sindresorhus/pure
 # Must do `npm i -g pure-prompt` to install
 # init
@@ -76,7 +81,9 @@ prompt pure
 prompt_newline='%666v' # single line prompt
 # PROMPT=" $PROMPT" # single line prompt
 # PROMPT='%F{white}%* '$PROMPT # show system time
-PROMPT=" %F{white}%* $PROMPT" # single line prompt + system time
+# PROMPT=" %F{white}%* $PROMPT" # single line prompt + system time
+NODEPROMPT="$FG[154]⬢ %{$reset_color%}$FG[158]%v`node -v`%{$reset_color%}"
+PROMPT=" %F{cyan}%* %{$reset_color%}($NODEPROMPT) $PROMPT" 
 
 # highlighting inside manpages and elsewhere
 export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
@@ -89,7 +96,3 @@ export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 
 # GNU core utilities (OS X ships with outdated ones)
 #export PATH="$PATH:`$(brew --prefix coreutils)/libexec/gnubin`"
-
-# nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
