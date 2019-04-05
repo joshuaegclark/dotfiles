@@ -39,6 +39,9 @@ brew install watch
 brew install git
 brew install zsh
 
+# gradlew `gw` shorthand
+brew install gdub
+
 ## Better git diffs!
 brew install diff-so-fancy
 
