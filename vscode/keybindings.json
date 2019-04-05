@@ -1,33 +1,82 @@
-// Place your key bindings in this file to overwrite the defaults
 [
-{
-  "key": "ctrl+c+ctrl+j",
-  "command": "clojureVSCode.connect",
-  "when": "editorTextFocus"
-},{
-  "key": "alt+.",
-  "command": "editor.action.goToDeclaration",
-  "when": "editorTextFocus"
-},{
-  "key": "alt+,",
-  "command": "workbench.action.navigateBack",
-  "when": "editorTextFocus"
-}
-,{
-  "key": "ctrl+c ctrl+e",
-  "command": "clojureVSCode.eval",
-  "when": "editorTextFocus"
-},{
-  "key": "ctrl+right",
-  "command": "paredit.slurpSexpForward",
-  "when": "editorTextFocus"
-}
-,{
-  "key": "ctrl+shift+e",
-  "command": "cursorEndSelect",
-  "when": "editorTextFocus"
-},{
-  "key": "ctrl+shift+a",
-  "command": "cursorHomeSelect",
-  "when": "editorTextFocus"
-}]
+  {
+    "key": "ctrl-shift-a",
+    "command": "cursorHomeSelect",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl-shift-e",
+    "command": "cursorEndSelect",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "cmd-]",
+    "command": "workbench.action.navigateForward",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "cmd-[",
+    "command": "workbench.action.navigateBack",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "alt+down",
+    "command": "editor.action.smartSelect.shrink",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "alt+up",
+    "command": "editor.action.smartSelect.grow",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+escape",
+    "command": "workbench.action.closePanel"
+  },
+  {
+    "key": "cmd+shift+[",
+    "command": "workbench.action.navigateToLastEditLocation",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "shift+alt+cmd+\\",
+    "command": "editor.action.jumpToBracket",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "shift+cmd+\\",
+    "command": "workbench.files.action.showActiveFileInExplorer"
+  },
+  {
+    "key": "ctrl+alt+tab",
+    "command": "workbench.action.openNextRecentlyUsedEditorInGroup"
+  },
+  {
+    "key": "ctrl+tab",
+    "command": "-workbench.action.openNextRecentlyUsedEditorInGroup"
+  },
+  {
+    "key": "ctrl+tab",
+    "command": "workbench.action.nextEditor"
+  },
+  {
+    "key": "ctrl+pagedown",
+    "command": "-workbench.action.nextEditor"
+  },
+  {
+    "key": "ctrl+shift+alt+tab",
+    "command": "workbench.action.openPreviousRecentlyUsedEditorInGroup"
+  },
+  {
+    "key": "ctrl+shift+tab",
+    "command": "-workbench.action.openPreviousRecentlyUsedEditorInGroup"
+  },
+  {
+    "key": "ctrl+shift+tab",
+    "command": "workbench.action.previousEditor"
+  },
+  {
+    "key": "ctrl+pageup",
+    "command": "-workbench.action.previousEditor"
+  }
+]
