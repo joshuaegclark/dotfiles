@@ -16,3 +16,7 @@ cd dotfiles
 # one-by-one from setup.sh 
 ./setup.sh
 ```
+
+
+# Misc. Useful Links
+increase max open files macOS: https://gist.github.com/tombigel/d503800a282fcadbee14b537735d202c
