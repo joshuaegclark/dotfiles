@@ -96,4 +96,7 @@ export LESS_TERMCAP_ue=$'\E[0m'           # end underline
 export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 
 # GNU core utilities (OS X ships with outdated ones)
-export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+COREUTILSBIN="/usr/local/opt/coreutils/libexec/gnubin"
+FINDUTILSBIN="/usr/local/opt/findutils/libexec/gnubin"
+GNUSEDBIN="/usr/local/opt/gnu-sed/libexec/gnubin"
+export PATH="$COREUTILSBIN:$FINDUTILSBIN:$GNUSEDBIN:$PATH"
