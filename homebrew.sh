@@ -27,7 +27,7 @@ brew install moreutils
 brew install findutils
 
 ## GNU sed, overwrites built-in sed
-brew install gnu-sed --with-default-names
+brew install gnu-sed
 
 ## Install more recent version of some OS X tools
 brew install vim # this option wasn't recognized: --overide-system-vi
