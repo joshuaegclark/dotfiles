@@ -37,6 +37,7 @@ brew install homebrew/homebrew-core/openssh
 
 brew install watch
 brew install git
+brew install leiningen
 brew install zsh
 
 # gradlew `gw` shorthand
