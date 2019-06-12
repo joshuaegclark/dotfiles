@@ -27,6 +27,7 @@ alias ls="gls -AFh ${colorflag} --group-directories-first"
 alias lsd='ls -l | grep "^d"' # only directories
 alias ll="ls -l"
 alias l="gls -aFh ${colorflag} --group-directories-first"
+alias ij="idea"
 
 # Utility Functions
 find-alias() {
@@ -95,4 +96,4 @@ export LESS_TERMCAP_ue=$'\E[0m'           # end underline
 export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 
 # GNU core utilities (OS X ships with outdated ones)
-#export PATH="$PATH:`$(brew --prefix coreutils)/libexec/gnubin`"
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
