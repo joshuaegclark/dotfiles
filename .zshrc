@@ -28,6 +28,7 @@ alias lsd='ls -l | grep "^d"' # only directories
 alias ll="ls -l"
 alias l="gls -aFh ${colorflag} --group-directories-first"
 alias ij="idea"
+alias ..="cd .."
 
 # Utility Functions
 find-alias() {
@@ -95,8 +96,12 @@ export LESS_TERMCAP_so=$'\E[38;5;246m'    # begin standout-mode - info box
 export LESS_TERMCAP_ue=$'\E[0m'           # end underline
 export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 
+# Make delete key not kill my terminal session
+set -o ignoreeof 3
+
 # GNU core utilities (OS X ships with outdated ones)
 COREUTILSBIN="/usr/local/opt/coreutils/libexec/gnubin"
 FINDUTILSBIN="/usr/local/opt/findutils/libexec/gnubin"
 GNUSEDBIN="/usr/local/opt/gnu-sed/libexec/gnubin"
 export PATH="$COREUTILSBIN:$FINDUTILSBIN:$GNUSEDBIN:$PATH"
+
