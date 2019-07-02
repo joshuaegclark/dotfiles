@@ -11,9 +11,6 @@
 	outgoing = log @{u}..
 [branch]
 	autosetuprebase = always
-[user]
-	name = joshuaegclark
-	email = joshuaegclark@gmail.com
 [push]
 	default = simple
 [merge]
