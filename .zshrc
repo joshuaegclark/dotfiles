@@ -12,7 +12,7 @@ alias gs="git status"
 alias gl="git log"
 alias ip="ifconfig | grep 'inet 10' | sed 's/.* \([0-9\.]*\) .*/\1/'"
 # count the number of lines in all files in a repo
-alias lines="git diff --shortstat `git hash-object -t tree /dev/null` > lines.txt && cat lines.txt && rm lines.txt"
+alias lines="git diff --shortstat `git hash-object -t tree /dev/null`"
 # `git old` will do this as well 
 alias show-branch-ages="git for-each-ref refs/remotes/origin/ --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"
 
