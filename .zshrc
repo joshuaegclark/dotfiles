@@ -42,7 +42,21 @@ findir() {
 killport() {
   echo Killing anything listening on port $1\.\.\.
   kill -9 $(lsof -t -iTCP:$1 -sTCP:LISTEN) 2>/dev/null
-} 
+}
+
+CYAN="\033[36m"
+NC="\033[0m" # No Color
+
+do-times() {
+  COMMAND=${@:2}
+  echo "${CYAN}Running command: $COMMAND${NC}"
+  echo "${CYAN}Executing $1 times...${NC}"
+  for run in {1..$1}
+  do
+    echo "${CYAN}==========Run $run==========${NC}"
+    $COMMAND
+  done
+}
 
 function proj() {
   cd ~/projects/$1
@@ -81,11 +95,17 @@ autoload -U promptinit; promptinit
 prompt pure
 # customize
 prompt_newline='%666v' # single line prompt
+# uncomment NODEPROMPT and use PROMPT below it to show node version
+# does not update if node version changes until a new shell session is
+# started
+# NODEPROMPT="$FG[154]⬢ %{$reset_color%}$FG[158]%v`node -v`%{$reset_color%}"
+# PROMPT=" %F{cyan}%* %{$reset_color%}($NODEPROMPT) $PROMPT"
+
+PROMPT=" %F{cyan}%* %{$reset_color%} $PROMPT"
+
 # PROMPT=" $PROMPT" # single line prompt
 # PROMPT='%F{white}%* '$PROMPT # show system time
 # PROMPT=" %F{white}%* $PROMPT" # single line prompt + system time
-NODEPROMPT="$FG[154]⬢ %{$reset_color%}$FG[158]%v`node -v`%{$reset_color%}"
-PROMPT=" %F{cyan}%* %{$reset_color%}($NODEPROMPT) $PROMPT" 
 
 # highlighting inside manpages and elsewhere
 export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
@@ -96,6 +116,24 @@ export LESS_TERMCAP_so=$'\E[38;5;246m'    # begin standout-mode - info box
 export LESS_TERMCAP_ue=$'\E[0m'           # end underline
 export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 
+# export SHELL_SESSION_HISTORY=0
+# setopt inc_append_history
+# bindkey -v
+# bindkey "^[[A" history-search-backward
+# bindkey "^[[B" history-search-forward
+
+
+bindkey '^[[A' up-line-or-search
+bindkey '^[[B' down-line-or-search
+
+setopt appendhistory # append history to history file (no overwriting)
+setopt sharehistory # Share history across sessions
+setopt incappendhistory # immediately append to the history file, not just when a session is killed
+
+export HISTFILE=~/.zsh_history
+export HISTSIZE=50000
+export SAVEHIST=$HISTSIZE
+
 # Make delete key not kill my terminal session
 set -o ignoreeof 3
 
@@ -103,5 +141,10 @@ set -o ignoreeof 3
 COREUTILSBIN="/usr/local/opt/coreutils/libexec/gnubin"
 FINDUTILSBIN="/usr/local/opt/findutils/libexec/gnubin"
 GNUSEDBIN="/usr/local/opt/gnu-sed/libexec/gnubin"
-export PATH="$COREUTILSBIN:$FINDUTILSBIN:$GNUSEDBIN:$PATH"
+
+# stacker for rally
+STACKER_HOME="$HOME/projects/rally-stack/bin"
+export STACKER_CONFIG_DIR="$HOME/projects/rally-stack/stacker/config"
+
+export PATH="$COREUTILSBIN:$FINDUTILSBIN:$GNUSEDBIN:$STACKER_HOME:$PATH"
 
