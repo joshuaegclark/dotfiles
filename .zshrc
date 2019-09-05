@@ -1,5 +1,8 @@
 # oh-my-zsh stuff for reference
 # set theme to empty for 
+export ZSH=$HOME/.oh-my-zsh
+source $ZSH/oh-my-zsh.sh
+
 ZSH_THEME=""
 plugins=(
   git
@@ -116,23 +119,19 @@ export LESS_TERMCAP_so=$'\E[38;5;246m'    # begin standout-mode - info box
 export LESS_TERMCAP_ue=$'\E[0m'           # end underline
 export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 
-# export SHELL_SESSION_HISTORY=0
-# setopt inc_append_history
-# bindkey -v
-# bindkey "^[[A" history-search-backward
-# bindkey "^[[B" history-search-forward
-
-
-bindkey '^[[A' up-line-or-search
-bindkey '^[[B' down-line-or-search
-
-setopt appendhistory # append history to history file (no overwriting)
-setopt sharehistory # Share history across sessions
-setopt incappendhistory # immediately append to the history file, not just when a session is killed
-
 export HISTFILE=~/.zsh_history
 export HISTSIZE=50000
 export SAVEHIST=$HISTSIZE
+
+## History command configuration
+## TODO: these configs may be redundant here, investigate
+setopt extended_history       # record timestamp of command in HISTFILE
+setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
+setopt hist_ignore_dups       # ignore duplicated commands history list
+setopt hist_ignore_space      # ignore commands that start with space
+setopt hist_verify            # show command with history expansion to user before running it
+setopt inc_append_history     # add commands to HISTFILE in order of execution
+setopt share_history          # share command history data
 
 # Make delete key not kill my terminal session
 set -o ignoreeof 3
