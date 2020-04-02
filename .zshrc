@@ -16,6 +16,7 @@ alias gl="git log"
 alias ip="ifconfig | grep 'inet 10' | sed 's/.* \([0-9\.]*\) .*/\1/'"
 # count the number of lines in all files in a repo
 alias lines="git diff --shortstat `git hash-object -t tree /dev/null`"
+
 # `git old` will do this as well 
 alias show-branch-ages="git for-each-ref refs/remotes/origin/ --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"
 
@@ -57,8 +58,15 @@ do-times() {
   for run in {1..$1}
   do
     echo "${CYAN}==========Run $run==========${NC}"
-    $COMMAND
+    # Simply running $COMMAND and the bash alternative do no work
+    # correctly for commands with spaces/args
+    # so instead using the slightly more dangerous `eval`.
+    # https://unix.stackexchange.com/questions/444946/how-can-we-run-a-command-stored-in-a-variable
+    #     bash -c $COMMAND
+    eval $COMMAND
   done
+
+  echo "${CYAN}==========Fín==========${NC}"
 }
 
 function proj() {
@@ -144,6 +152,20 @@ GNUSEDBIN="/usr/local/opt/gnu-sed/libexec/gnubin"
 # stacker for rally
 STACKER_HOME="$HOME/projects/rally-stack/bin"
 export STACKER_CONFIG_DIR="$HOME/projects/rally-stack/stacker/config"
+function almdb() {
+    if [ $1 = "up" ]; then
+        docker-compose -f ~/projects/alm/alm-webapp/db/db.yml -p db up -d
+    elif [ $1 = "down" ]; then
+        docker-compose -f ~/projects/alm/alm-webapp/db/db.yml -p db down
+    elif [ $1 = "logs" ]; then
+        docker-compose -f ~/projects/alm/alm-webapp/db/db.yml -p db logs -f
+    else
+        echo "Unsupported argument $1"
+    fi
+}
 
 export PATH="$COREUTILSBIN:$FINDUTILSBIN:$GNUSEDBIN:$STACKER_HOME:$PATH"
 
+# RVM is needed for local pinata development, otherwise it wouldn't be on my machine
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+# export PATH="$PATH:$HOME/.rvm/bin"
