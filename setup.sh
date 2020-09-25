@@ -30,8 +30,18 @@ print_success() {
     printf "\e[0;32m  [✔] $1\e[0m\n"
 }
 
+# Begin setup
+echo "Please enter your github username. Press enter to skip."
+read -r GITHUB_USERNAME
+
+echo "Please enter your github email address. Press enter to skip."
+read -r GITHUB_EMAIL_ADDRESS
+
 # Install Homebrew and formulae and native applications via cask
 bash ./homebrew.sh
+
+# Run homebrew setup first so diff-so-fancy is installed prior to configuring git to use it
+./git-config-setup.sh "$GITHUB_USERNAME" "$GITHUB_EMAIL_ADDRESS"
 
 # Install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
