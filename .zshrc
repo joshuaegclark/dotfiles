@@ -79,10 +79,10 @@ compctl -K _proj_completion proj
 alias p="proj"
 
 rally-clone() {
-  git clone https://github.com/RallySoftware/$1.git
+  git clone https://github.com/RallySoftware/$1.git ${@:2}
 }
 josh-clone() {
-  git clone https://github.com/joshuaegclark/$1.git
+  git clone https://github.com/joshuaegclark/$1.git ${@:2}
 }
 
 # oceanic next shell theme
@@ -152,17 +152,6 @@ GNUSEDBIN="/usr/local/opt/gnu-sed/libexec/gnubin"
 # stacker for rally
 STACKER_HOME="$HOME/projects/rally-stack/bin"
 export STACKER_CONFIG_DIR="$HOME/projects/rally-stack/stacker/config"
-function almdb() {
-    if [ $1 = "up" ]; then
-        docker-compose -f ~/projects/alm/alm-webapp/db/db.yml -p db up -d
-    elif [ $1 = "down" ]; then
-        docker-compose -f ~/projects/alm/alm-webapp/db/db.yml -p db down
-    elif [ $1 = "logs" ]; then
-        docker-compose -f ~/projects/alm/alm-webapp/db/db.yml -p db logs -f
-    else
-        echo "Unsupported argument $1"
-    fi
-}
 
 export PATH="$COREUTILSBIN:$FINDUTILSBIN:$GNUSEDBIN:$STACKER_HOME:$PATH"
 
