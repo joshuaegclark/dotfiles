@@ -1,7 +1,26 @@
 #!/usr/bin/env bash
 
+GITHUB_USERNAME=$1
+GITHUB_EMAIL_ADDRESS=$2
+
+if [ -z "$GITHUB_USERNAME" ]; then
+  echo "Github username not set, skipping.";
+else
+  echo "Setting global git user.name to: '$GITHUB_USERNAME'";
+  git config --global user.name "$GITHUB_USERNAME"
+fi
+
+if [ -z "$GITHUB_EMAIL_ADDRESS" ]; then
+  echo "Github email address not set, skipping.";
+else
+  echo "Setting global git user.email to: '$GITHUB_EMAIL_ADDRESS'";
+  git config --global user.email "$GITHUB_EMAIL_ADDRESS"
+fi
+
+echo "Setting up general git config options and aliases..."
+
 # general
-git config --global branch.autosetuprebase true
+git config --global branch.autosetuprebase always
 git config --global push.default simple
 git config --global merge.conflictstyle diff3
 git config --global core.editor vim
@@ -33,3 +52,5 @@ git config --global color.branch.remote "green"
 git config --global color.status.added "green"
 git config --global color.status.changed "yellow bold"
 git config --global color.status.untracked "cyan bold"
+
+echo "Git configuration complete."
