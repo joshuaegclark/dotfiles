@@ -29,6 +29,9 @@ brew install findutils
 ## GNU sed, overwrites built-in sed
 brew install gnu-sed
 
+# macs ship with an ancient version of rsync, so install latest
+brew install rsync
+
 ## Install more recent version of some OS X tools
 brew install vim # this option wasn't recognized: --overide-system-vi
 brew install homebrew/homebrew-core/grep
