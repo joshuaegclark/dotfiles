@@ -9,6 +9,7 @@ plugins=(
 )
 
 alias .rc="source $HOME/.zshrc"
+alias cs="grunt createsubonly && grunt createsubdata"
 alias rc="vim $HOME/.zshrc"
 alias vi="vim"
 alias gs="git status"
