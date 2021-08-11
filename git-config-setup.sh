@@ -32,6 +32,8 @@ git config --global alias.old "for-each-ref refs/remotes/origin/ --sort=-committ
 git config --global alias.incoming "!git remote update -p; git log ..@{u}"
 git config --global alias.outgoing "log @{u}.."
 git config --global alias.recent-branches "for-each-ref --sort=-committerdate --count=10 --format='%(refname:short)' refs/heads/"
+git config --global alias.rb "recent-branches"
+git config --global alias.df "diff -- .':(exclude)*package-lock.json'"
 
 # diff-so-fancy
 git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
