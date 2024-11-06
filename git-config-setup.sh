@@ -34,6 +34,7 @@ git config --global alias.outgoing "log @{u}.."
 git config --global alias.recent-branches "for-each-ref --sort=-committerdate --count=10 --format='%(refname:short)' refs/heads/"
 git config --global alias.rb "recent-branches"
 git config --global alias.df "diff -- .':(exclude)*package-lock.json'"
+git config --global alias.discard "! git stash -q --include-untracked && git stash drop -q"
 
 # diff-so-fancy
 git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
