@@ -179,15 +179,3 @@ set -o ignoreeof 3
 COREUTILSBIN="/usr/local/opt/coreutils/libexec/gnubin"
 FINDUTILSBIN="/usr/local/opt/findutils/libexec/gnubin"
 GNUSEDBIN="/usr/local/opt/gnu-sed/libexec/gnubin"
-
-# This was needed as of November 6th 2024 in order for ALM docker related things to work
-export DOCKER_DEFAULT_PLATFORM=linux/x86_64/v8
-export PATH="$COREUTILSBIN:$FINDUTILSBIN:$GNUSEDBIN:$STACKER_HOME:$PATH"
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/amazon-corretto-17.jdk/Contents/Home
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"

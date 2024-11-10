@@ -26,6 +26,7 @@ git config --global merge.conflictstyle diff3
 git config --global core.editor vim
 git config --global fetch.prune true
 git config --global pull.rebase true
+ git config --global init.defaultBranch main
 
 #aliases
 git config --global alias.old "for-each-ref refs/remotes/origin/ --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"
