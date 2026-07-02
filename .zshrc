@@ -16,9 +16,14 @@ plugins=(
   git
   nvm
   zsh-sdkman
+  zsh-syntax-highlighting
 )
 
 export ZSH=$HOME/.oh-my-zsh
+
+# remove end-of-line (ctrl+e) from autosuggest accept triggers; keep forward-char (right arrow)
+ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(forward-char vi-forward-char vi-end-of-line vi-add-eol)
+
 source $ZSH/oh-my-zsh.sh
 
 ###
@@ -30,14 +35,24 @@ export CLICOLOR_FORCE=1
 
 DISABLE_AUTO_TITLE="true"
 
-# oceanic next shell theme
-# https://github.com/mhartington/oceanic-next-shell
-# must do the following first to install:
-# git clone https://github.com/mhartington/oceanic-next-shell.git ~/.config/oceanic-next-shell
-#
-# Base16 Shell
-BASE16_SHELL="$HOME/.config/oceanic-next-shell/oceanic-next.dark.sh"
-[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+# ── Shell color theme ────────────────────────────────────────────────
+# Themes live in ~/.config/shell-themes/<name>/ (base16.sh + fzf.sh + statusline.sh).
+# Switch everything at once — shell + fzf + Claude Code + iTerm2 profile — with:
+#     theme <name>        e.g.  theme oceanic  |  theme biolume
+#     theme               list available + show current
+# Preserved original: `oceanic` (Oceanic Next). Active theme -> $SHELL_THEMES_DIR/active
+export SHELL_THEMES_DIR="$HOME/.config/shell-themes"
+_active_theme="$(cat "$SHELL_THEMES_DIR/active" 2>/dev/null || echo oceanic)"
+[[ -s "$SHELL_THEMES_DIR/$_active_theme/base16.sh" ]] && source "$SHELL_THEMES_DIR/$_active_theme/base16.sh"
+[[ -s "$SHELL_THEMES_DIR/theme.zsh" ]] && source "$SHELL_THEMES_DIR/theme.zsh"
+
+# fzf opts — palette follows the active shell theme
+[[ -s "$SHELL_THEMES_DIR/$_active_theme/fzf.sh" ]] && source "$SHELL_THEMES_DIR/$_active_theme/fzf.sh"
+source <(fzf --zsh)
+unset _active_theme
+
+# bat (replace cat)
+# alias cat="bat --paging=never"
 
 # Load nvm before setting up the prompt to avoid
 # race condition when getting node version
@@ -65,7 +80,17 @@ prompt_newline='%667v' # single line prompt
 
 # THIS ONE
 prompt pure
+
+# Complex prompts resize correctly by allowing the shell to redraw -- rather than reflow -- the prompt line.
+TRAPWINCH() {
+  zle && zle reset-prompt
+}
+
 PROMPT=" %F{cyan}%T%f $PROMPT"
+
+_copy-git-branch() { git branch --show-current 2>/dev/null | tr -d '\n' | pbcopy }
+zle -N _copy-git-branch
+bindkey $'\x1b[98;17u' _copy-git-branch
 
 
 
@@ -124,6 +149,9 @@ alias ij="idea"
 alias ..="cd .."
 alias deps="pnpm deps"
 
+
+alias claude='~/.local/bin/claude --model="opus"'
+
 # Utility Functions
 difff() {
   diff -u "$1" "$2" | diff-so-fancy
@@ -163,6 +191,10 @@ do-times() {
   echo "${CYAN}==========Fín==========${NC}"
 }
 
+stopwatch() {
+  TIMEFMT="%*Es"; time (read)
+}
+
 qt-int() {
   pnpm test:integration --exact=$1
 }
@@ -192,6 +224,24 @@ _proj_completion() {
 compctl -K _proj_completion proj
 alias p="proj"
 
+# cd to a worktree by name, regardless of which repo it lives under
+# usage: wd <worktree-name>   (bare `wd` jumps to the worktrees root)
+wd() {
+  local base="$HOME/projects/.worktrees"
+  [[ -z "$1" ]] && { cd "$base"; return }
+  local matches=("$base"/*/"$1"(/N))
+  case ${#matches} in
+    0) echo "wd: no worktree named '$1' under $base" >&2; return 1 ;;
+    1) cd "${matches[1]}" ;;
+    *) echo "wd: '$1' matches multiple repos:" >&2
+       print -l -- ${matches#$base/} >&2; return 1 ;;
+  esac
+}
+_wd_completion() {
+  reply=($(cd "$HOME/projects/.worktrees" 2>/dev/null && ls -1d */*/ 2>/dev/null | sed 's#.*/\([^/]*\)/$#\1#' | sort -u))
+}
+compctl -K _wd_completion wd
+
 rally-clone() {
   git clone https://github.gwd.broadcom.net/ESD/$1.git ${@:2}
 }
@@ -212,39 +262,9 @@ COREUTILSBIN="/usr/local/opt/coreutils/libexec/gnubin"
 FINDUTILSBIN="/usr/local/opt/findutils/libexec/gnubin"
 GNUSEDBIN="/usr/local/opt/gnu-sed/libexec/gnubin"
 
-# This was needed as of November 6th 2024 in order for ALM docker related things to work
-export DOCKER_DEFAULT_PLATFORM=linux/x86_64/v8
-export PATH="$COREUTILSBIN:$FINDUTILSBIN:$GNUSEDBIN:$STACKER_HOME:$PATH:/Applications/IntelliJ IDEA.app/Contents/MacOS"
+CURSOR_CLI_BIN="$HOME/.local/bin"
+export PATH="$CURSOR_CLI_BIN:$COREUTILSBIN:$FINDUTILSBIN:$GNUSEDBIN:$STACKER_HOME:$PATH:/Applications/IntelliJ IDEA.app/Contents/MacOS"
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/amazon-corretto-17.jdk/Contents/Home
-
-# #compdef pnpm
-# ###-begin-pnpm-completion-###
-# if type compdef &>/dev/null; then
-#   _pnpm_completion () {
-#     local reply
-#     local si=$IFS
-#
-#     IFS=$'\n' reply=($(COMP_CWORD="$((CURRENT-1))" COMP_LINE="$BUFFER" COMP_POINT="$CURSOR" SHELL=zsh pnpm completion-server -- "${words[@]}"))
-#     IFS=$si
-#
-#     if [ "$reply" = "__tabtab_complete_files__" ]; then
-#       _files
-#     else
-#       _describe 'values' reply
-#     fi
-#   }
-#   # When called by the Zsh completion system, this will end with
-#   # "loadautofunc" when initially autoloaded and "shfunc" later on, otherwise,
-#   # the script was "eval"-ed so use "compdef" to register it with the
-#   # completion system
-#   if [[ $zsh_eval_context == *func ]]; then
-#     _pnpm_completion "$@"
-#   else
-#     compdef _pnpm_completion pnpm
-#   fi
-# fi
-# ###-end-pnpm-completion-###
-
 
 # zprof
 
@@ -255,3 +275,5 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+source ~/.config/default.env
