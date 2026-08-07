@@ -150,7 +150,15 @@ alias ..="cd .."
 alias deps="pnpm deps"
 
 
-alias claude='~/.local/bin/claude --model="opus"'
+alias claude='~/.local/bin/claude --model="sonnet"'
+
+# Update Claude Code, then marketplaces, then plugins (order matters:
+# refresh marketplace metadata before updating plugins against it).
+claude-update() {
+  command claude update
+  command claude plugin marketplace update
+  command claude plugin update "${1:-valueops-agent-skills@valueops-agent-skills}"
+}
 
 # Utility Functions
 difff() {
