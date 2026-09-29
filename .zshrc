@@ -52,7 +52,7 @@ source <(fzf --zsh)
 unset _active_theme
 
 # bat (replace cat)
-# alias cat="bat --paging=never"
+alias cat="bat --paging=never"
 
 # Load nvm before setting up the prompt to avoid
 # race condition when getting node version
@@ -152,12 +152,19 @@ alias deps="pnpm deps"
 
 alias claude='~/.local/bin/claude --model="sonnet"'
 
-# Update Claude Code, then marketplaces, then plugins (order matters:
-# refresh marketplace metadata before updating plugins against it).
+# Update Claude Code, then marketplaces, then every installed plugin from
+# the valueops-agent-skills marketplace (order matters: refresh marketplace
+# metadata before updating plugins against it). Plugin names within that
+# marketplace can and do change, so discover them via `plugin list --json`
+# instead of hardcoding one.
 claude-update() {
   command claude update
   command claude plugin marketplace update
-  command claude plugin update "${1:-valueops-agent-skills@valueops-agent-skills}"
+  command claude plugin list --json \
+    | jq -r '.[] | select(.id | endswith("@valueops-agent-skills")) | .id' \
+    | while IFS= read -r plugin; do
+        command claude plugin update "$plugin"
+      done
 }
 
 # Utility Functions
@@ -285,3 +292,6 @@ esac
 # pnpm end
 
 source ~/.config/default.env
+
+
+alias drift-check="git -C ~/projects/valueops-agent-skills diff 302350df6d74e120d32d8dffe17e01f2c710d8bf..origin/main -- plugins/engineering/skills/implement/SKILL.md plugins/engineering/skills/rally-artifact-retrieval/SKILL.md"
